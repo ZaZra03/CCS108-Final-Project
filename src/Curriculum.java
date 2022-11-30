@@ -11,6 +11,8 @@ public class Curriculum {
 	//Parameterized Constructor
 	public Curriculum(String yearEffectivity) {
 		this.yearEffectivity = yearEffectivity;
+		this.id = this.idCounter;
+		this.idCounter++;
 	}
 	
 	//Methods
