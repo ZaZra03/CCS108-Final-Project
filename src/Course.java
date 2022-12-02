@@ -13,6 +13,10 @@ public class Course {
 	public int getUnits() {
 		return this.units;
 	}
+	
+	public int getId() {
+		return this.id;
+	}
 
 	// Parameterized Constructor
 	public Course(String courseCode, String description, int units, String preRequisite, String coRequisite) {
