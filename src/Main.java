@@ -67,7 +67,7 @@ public class Main {
 		System.out.println("\nCreating a new Program...");
 		System.out.print("\nEnter the Program's Name: ");
 		String name = in.readLine();
-		
+
 		if (name.isBlank()) {
 			throw new Exception("\nProgram's Name cannot be empty. Returning to Main Menu...");
 		}
@@ -81,19 +81,19 @@ public class Main {
 		System.out.println("\nCreating a new Course...");
 		System.out.print("\nEnter the Course's Code: ");
 		String courseCode = in.readLine();
-		System.out.println("Enter the Course's Description: ");
+		System.out.print("Enter the Course's Description: ");
 		String description = in.readLine();
-		System.out.println("Enter the Number of Units: ");
+		System.out.print("Enter the Number of Units: ");
 		int units = Integer.parseInt(in.readLine());
-		System.out.println("Enter the Pre-Requisite Course (Leave Blank if None): ");
+		System.out.print("Enter the Pre-Requisite Course (Leave Blank if None): ");
 		String preRequisite = in.readLine();
-		System.out.println("Enter the Co-Requisite Course (Leave Blank if None): ");
+		System.out.print("Enter the Co-Requisite Course (Leave Blank if None): ");
 		String coRequisite = in.readLine();
-		
+
 		if (courseCode.isBlank() || description.isBlank() || units < 1) {
 			throw new Exception("\nOne of inputs is Invalid. Returning to Main Menu...");
 		}
-		
+
 		Course course = new Course(courseCode, description, units, preRequisite, coRequisite);
 		listCourses.add(course);
 		System.out.println("\nCourse Created! Returning to Main Menu...");
@@ -154,39 +154,51 @@ public class Main {
 					System.out.println("\nCurriculum Added! Returning to Program Menu...");
 					break;
 				case 2:
-					System.out.println("\nAdding a Course to the Curriculum...");
-					DisplayCourseList();
-					System.out.print("\nEnter Course ID: ");
-					int courseId = Integer.parseInt(in.readLine());
-					System.out.print("Enter the Academic Year (1-4): ");
-					int year = Integer.parseInt(in.readLine());
-					System.out.print("Enter the Semester (1-2): ");
-					int semester = Integer.parseInt(in.readLine());
-					for (Course course : listCourses) {
-						if (course.getId() == courseId) {
-							program.getCurriculum().AddCourseOnPeriod(course, year, semester);
-							System.out.println("\nCourse Added to Curriculum! Returning to Program Menu...");
-							break outer;
+					if (program.getCurriculum() != null) {
+						System.out.println("\nAdding a Course to the Curriculum...");
+						DisplayCourseList();
+						System.out.print("\nEnter Course ID: ");
+						int courseId = Integer.parseInt(in.readLine());
+						System.out.print("Enter the Academic Year (1-4): ");
+						int year = Integer.parseInt(in.readLine());
+						System.out.print("Enter the Semester (1-2): ");
+						int semester = Integer.parseInt(in.readLine());
+						for (Course course : listCourses) {
+							if (course.getId() == courseId) {
+								program.getCurriculum().AddCourseOnPeriod(course, year, semester);
+								System.out.println("\nCourse Added to Curriculum! Returning to Program Menu...");
+								break outer;
+							}
 						}
+						throw new Exception("\nCourse ID: " + courseId + " not found. Returning to Program Menu...");
+					} else {
+						throw new Exception("\nThis program have no Curriculum added yet. Returning to Program Menu...");
 					}
-					throw new Exception("\nCourse ID: " + courseId + " not found. Returning to Program Menu...");
 				case 3:
-					System.out.println("\nRemoving a Course in the Curriculum...");
-					DisplayCourseList();
-					System.out.print("\nEnter Course ID: ");
-					courseId = Integer.parseInt(in.readLine());
-					for (Course course : listCourses) {
-						if (course.getId() == courseId) {
-							program.getCurriculum().RemoveCourseInCurriculum(course);
-							System.out.println("\nCourse Removed from Curriculum! Returning to Program Menu...");
-							break outer;
+					if (program.getCurriculum() != null) {
+						System.out.println("\nRemoving a Course in the Curriculum...");
+						DisplayCourseList();
+						System.out.print("\nEnter Course ID: ");
+						int courseId = Integer.parseInt(in.readLine());
+						for (Course course : listCourses) {
+							if (course.getId() == courseId) {
+								program.getCurriculum().RemoveCourseInCurriculum(course);
+								System.out.println("\nCourse Removed from Curriculum! Returning to Program Menu...");
+								break outer;
+							}
 						}
+						throw new Exception("\nCourse ID: " + courseId + " not found. Returning to Program Menu...");
+					} else {
+						throw new Exception("\nThis program have no Curriculum added yet. Returning to Program Menu...");
 					}
-					throw new Exception("\nCourse ID: " + courseId + " not found. Returning to Program Menu...");
 				case 4:
-					System.out.println("\nDisplaying " + program.getName() + " Full Details...");
-					System.out.println(program.GetFullDetails());
-					break;
+					if (program.getCurriculum() != null) {
+						System.out.println("\nDisplaying " + program.getName() + " Full Details...");
+						System.out.println(program.GetFullDetails());
+						break;
+					} else {
+						throw new Exception("\nThis program have no Curriculum added yet. Returning to Program Menu...");
+					}
 				case 5:
 					System.out.println("\nWarning! Deleting this Program's Curriculum...");
 					System.out.println(
