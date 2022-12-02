@@ -1,17 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AcademicTerm {
 	// Class Fields
 	private int year;
 	private int semester;
 	private List<Course> listCourses = new ArrayList<Course>();
-
-	// Parameterized Constructor
-	public AcademicTerm(int year, int semester) {
-		this.year = year;
-		this.semester = semester;
-	}
 
 	// Getters
 	public int getYear() {
@@ -26,17 +19,20 @@ public class AcademicTerm {
 		return this.listCourses;
 	}
 
+	// Parameterized Constructor
+	public AcademicTerm(int year, int semester) {
+		this.year = year;
+		this.semester = semester;
+	}
+
 	// Methods
 	public void AddCourse(Course course) throws Exception {
-		if (!this.listCourses.contains(course)) {
-			if (!this.CheckUnitCount(course)) {
-				this.listCourses.add(course);
-			} else {
-				throw new Exception("\nNumber of Units exceeds the limit unit for the semester");
-			}
+		if (!this.CheckUnitCount(course)) {
+			this.listCourses.add(course);
 		} else {
-			throw new Exception("\nThis course is already on this curriculum");
+			throw new Exception("\nNumber of Units exceeds the limit unit for the semester");
 		}
+
 	}
 
 	public void RemoveCourse(Course course) throws Exception {
