@@ -1,4 +1,5 @@
 
+
 public class Program {
 	// Class Fields
 	private static int idCounter = 1;
@@ -6,7 +7,21 @@ public class Program {
 	private String name;
 	private Curriculum curriculum;
 
+	/**
+	 * Parameterized Constructor
+	 * 
+	 * @param name
+	 */
+	public Program(String name) {
+		this.id = idCounter;
+		this.name = name;
+		idCounter++;
+	}
+	
 	// Getters
+	/**
+	 * @return
+	 */
 	public int getId() {
 		return this.id;
 	}
@@ -15,18 +30,24 @@ public class Program {
 		return this.name;
 	}
 	
+	/**
+	 * @return
+	 */
 	public Curriculum getCurriculum() {
 		return this.curriculum;
 	}
 	
-	// Parameterized Constructor
-	public Program(String name) {
-		this.id = idCounter;
-		this.name = name;
-		idCounter++;
-	}
 
 	// Methods
+	
+	/**
+	 * Adds curriculum into the program
+	 * Creates a new Curriculum object passing the yearEffectivity as its parameter
+	 * A Curriculum won't be added if the program already has as curriculum
+	 * 
+	 * @param yearEffectivity
+	 * @throws Exception
+	 */
 	public void AddCurriculum(String yearEffectivity) throws Exception {
 		if (this.curriculum == null) {
 			this.curriculum = new Curriculum(yearEffectivity);
@@ -35,6 +56,12 @@ public class Program {
 		}
 	}
 	
+	/**
+	 * Deletes the curriculum of the program if it has one.
+	 * If the program do not have a Curriculum object assigned, a prompt will show.
+	 * 
+	 * @throws Exception
+	 */
 	public void DeleteCurriculum() throws Exception {
 		if (this.curriculum != null) {
 			this.curriculum = null;
@@ -43,10 +70,23 @@ public class Program {
 		}
 	}
 
+	/**
+	 * Displays the details of the program.
+	 * It shows the Program ID and name.
+	 * 
+	 * @return
+	 */
 	public String GetProgramDetails() {
 		return "\nPROGRAM ID : " + this.id + "\nPROGRAM NAME : " + this.name;
 	}
 	
+	/**
+	 * Displays the full details of the program.
+	 * It includes the program ID, name, and the full details of its 
+	 * curriculum object.
+	 * 
+	 * @return
+	 */
 	public String GetFullDetails() {
 		return "\nPROGRAM ID : " + this.id + "\nPROGRAM NAME : " + this.name
 				+ "\n\n===== CURRICULUM CONTENTS =====\n" + this.curriculum.GetFullDetails();
