@@ -6,6 +6,13 @@ public class Main {
 	static List<Program> listPrograms = new ArrayList<Program>();
 	static List<Course> listCourses = new ArrayList<Course>();
 
+	/**
+	 * Contains the main menu of the program
+	 * if an error occurs when creating a new program or course,
+	 * they are return in the main menu.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// while loop to continuously loop the program until the user wishes to exit
 		while (true) {
@@ -28,18 +35,30 @@ public class Main {
 
 				outer: switch (response) {
 				case 1:
+					//CreateNewProgram() method call
 					CreateNewProgram();
 					break;
 				case 2:
+					//CreateNewCourse() method call
 					CreateNewCourse();
 					break;
 				case 3:
+					//DsiplayProgramList() method call
 					DisplayProgramList();
 					break;
 				case 4:
+					//DisplayCourseList() method call
 					DisplayCourseList();
 					break;
 				case 5:
+					/*
+					 * All of the available programs is displayed when 
+					 * editing a college program.
+					 * Id is used to select the program to edit.
+					 * If the program exists, the EditCollegeProgram() method is called
+					 * If it does not exist, a prompt will show.
+					 * 
+					 */
 					System.out.println("\nEditing a College Program...");
 					DisplayProgramList();
 					System.out.print("\nPlease Enter College Program ID: ");
@@ -51,6 +70,7 @@ public class Main {
 						}
 					}
 					throw new Exception("\nCollege Program ID: " + programId + " is not found. Returning to Main Menu");
+					//Exits the program
 				case 6:
 					System.out.println("\nClosing Program");
 					System.exit(0);
@@ -63,6 +83,14 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Creates a new Program class object and uses the 
+	 * String name input as its parameter.
+	 * If the String name is empty, the user will be returned to the Main mennu.
+	 * If the input is valid, a new Program class object is made.
+	 * 
+	 * @throws Exception
+	 */
 	public static void CreateNewProgram() throws Exception {
 		System.out.println("\nCreating a new Program...");
 		System.out.print("\nEnter the Program's Name: ");
@@ -77,6 +105,18 @@ public class Main {
 		EditCollegeProgram(program);
 	}
 
+	/**
+	 *Creates a new course and is saved in the courses list of the Main class
+	 *Asks for the informations of the Course object and it will be used for the 
+	 *Course class' parameters.
+	 *If one of the important informations(Course code, description, number of units)
+	 * asked is invalid or left blank, the user will be returned
+	 *to the Main Menu.
+	 *If all the inputs are valid, a new Course object is created and is added into the 
+	 *courses list of the Main class
+	 * 
+	 * @throws Exception
+	 */
 	public static void CreateNewCourse() throws Exception {
 		System.out.println("\nCreating a new Course...");
 		System.out.print("\nEnter the Course's Code: ");
@@ -99,6 +139,12 @@ public class Main {
 		System.out.println("\nCourse Created! Returning to Main Menu...");
 	}
 
+	/**
+	 * If there are no programs yet, a prompt will show saying that the list is empty. 
+	 * Otherwise the method displays all of the Programs inside the list of Programs together with their
+	 * details.
+	 * @throws Exception
+	 */
 	public static void DisplayProgramList() throws Exception {
 		if (!listPrograms.isEmpty()) {
 			System.out.println("\nDisplaying All Programs inside the List...");
@@ -110,6 +156,12 @@ public class Main {
 		}
 	}
 
+	/**
+	 * If there are no courses yet, a prompt will show saying that the list is empty. 
+	 * Otherwise the method displays all of the Courses inside the list of Courses together with their
+	 * details.
+	 * @throws Exception
+	 */
 	public static void DisplayCourseList() throws Exception {
 		if (!listCourses.isEmpty()) {
 			System.out.println("\nDisplaying All Courses inside the List...");
@@ -121,6 +173,15 @@ public class Main {
 		}
 	}
 
+	/**
+	 * This method acts as a sub menu to edit a College Program
+	 * If an error occurs when performing one of the operations,
+	 * the user will be returned to the Main Menu.
+	 * The method uses a Program object as its parameter, the object passed into the method
+	 * is the Program object that is going to undergo editing.
+	 * 
+	 * @param program
+	 */
 	public static void EditCollegeProgram(Program program) {
 		// while loop to continuously loop the program until the user wishes to exit
 		while (true) {
@@ -143,6 +204,14 @@ public class Main {
 				}
 
 				outer: switch (response) {
+				/*
+				 * Case 1 adds a curriculum into the selected program.
+				 * The year of effectivity is needed for this operation as it is the 
+				 * parameter passed into the constructor of the Curriculum class.
+				 * If the input is empty or invalid, the user is returned to the Program Meny
+				 * If it is valid, a new Curriculum object is made and the user is returned to the Program
+				 * Menu.
+				 */
 				case 1:
 					System.out.println("\nAdding Curriculum to " + program.getName() + "...");
 					System.out.print("\nEnter Curriculum's Year of Effectivity: ");
@@ -153,6 +222,13 @@ public class Main {
 					program.AddCurriculum(yearEffectivity);
 					System.out.println("\nCurriculum Added! Returning to Program Menu...");
 					break;
+					/*
+					 * A course cannot be added in a Program object if it does not have a 
+					 * Curriculum object
+					 * The method asks for the informations of the Course object which is going
+					 * to be passed into the parameters of the Course class' Constructor.
+					 * IF the Course's ID does not exist, a prompt will show.
+					 */
 				case 2:
 					if (program.getCurriculum() != null) {
 						System.out.println("\nAdding a Course to the Curriculum...");
@@ -174,6 +250,14 @@ public class Main {
 					} else {
 						throw new Exception("\nThis program have no Curriculum added yet. Returning to Program Menu...");
 					}
+					/*
+					 * Removes a course in the Program's Curriculum
+					 * ID is used to search for the Course inside the Curriculum
+					 * It is removed if found.
+					 * If it is not found a prompt will show.
+					 * The Operation cannot be executed if the program does not have a 
+					 * Curriculum yet.
+					 */
 				case 3:
 					if (program.getCurriculum() != null) {
 						System.out.println("\nRemoving a Course in the Curriculum...");
