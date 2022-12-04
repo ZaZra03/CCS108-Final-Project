@@ -6,26 +6,51 @@ public class AcademicTerm {
 	private int semester;
 	private List<Course> listCourses = new ArrayList<Course>();
 
-	// Getters
-	public int getYear() {
-		return this.year;
-	}
-
-	public int getSemester() {
-		return this.semester;
-	}
-
-	public List<Course> getListCourses() {
-		return this.listCourses;
-	}
-
-	// Parameterized Constructor
+	
+	/**
+	 * Parameterized Constructor
+	 * 
+	 * @param year
+	 * @param semester
+	 */
 	public AcademicTerm(int year, int semester) {
 		this.year = year;
 		this.semester = semester;
 	}
+	// Getters
+	
+	/**
+	 * @return
+	 */
+	public int getYear() {
+		return this.year;
+	}
+
+	/**
+	 * @return
+	 */
+	public int getSemester() {
+		return this.semester;
+	}
+
+	/**
+	 * @return
+	 */
+	public List<Course> getListCourses() {
+		return this.listCourses;
+	}
+
 
 	// Methods
+	
+	/**
+	 * Adds the Course object input into the AcademicTerm object
+	 * If the total units for the academic term exceeds the limit,
+	 * the course won't be allowed to be added in the AcademicTerm object
+	 * 
+	 * @param course
+	 * @throws Exception
+	 */
 	public void AddCourse(Course course) throws Exception {
 		if (!this.CheckUnitCount(course)) {
 			this.listCourses.add(course);
@@ -35,6 +60,13 @@ public class AcademicTerm {
 
 	}
 
+	/**
+	 * Removes the selected course. If does not exist in the AcademicTerm object's
+	 * list of courses, a prompt will show.
+	 * 
+	 * @param course
+	 * @throws Exception
+	 */
 	public void RemoveCourse(Course course) throws Exception {
 		if (this.listCourses.contains(course)) {
 			this.listCourses.remove(course);
@@ -43,6 +75,14 @@ public class AcademicTerm {
 		}
 	}
 
+	/**
+	 * Checks the total units count in of the courses inside the AcademicTerm object
+	 * If it exceeds the maximum, which is 26, it will return true. Otherwise, it will 
+	 * return false.
+	 * 
+	 * @param course
+	 * @return
+	 */
 	private boolean CheckUnitCount(Course course) {
 		int count = course.getUnits();
 		for (Course currentCourse : this.listCourses) {
@@ -51,6 +91,18 @@ public class AcademicTerm {
 		return count >= 26;
 	}
 
+	/**
+	 * Displays the full details of the AcademicTerm object
+	 * It displays different prompts depending on the value of the AcademicTerm's 
+	 * class fields.
+	 * If the AcademicTerm's year and semseter is 1, it will show the courses of the AcademicTerm
+	 * First Year - First Semester.
+	 * If the year is 1 and the Semester, it will do the same for the AcademicTerm First Year-Second Semester
+	 * If the AcademicTerm does not have any courses in it yet, it will display
+	 * "No Courses Set" under that AcademicTerm's details.
+	 * 
+	 * @return
+	 */
 	public String GetFullDetails() {
 		String details = "";
 
