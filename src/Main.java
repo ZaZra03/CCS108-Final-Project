@@ -275,6 +275,12 @@ public class Main {
 					} else {
 						throw new Exception("\nThis program have no Curriculum added yet. Returning to Program Menu...");
 					}
+					/*
+					 * Displays the Program's full details, including the program's ID, name, and the program curriculum's full 
+					 * details. 
+					 * If there is no curriculum yet in the program, a prompt will show saying that theere is no curriculum yet
+					 * and then the user will be returned to the program menu 
+					 */
 				case 4:
 					if (program.getCurriculum() != null) {
 						System.out.println("\nDisplaying " + program.getName() + " Full Details...");
@@ -283,6 +289,11 @@ public class Main {
 					} else {
 						throw new Exception("\nThis program have no Curriculum added yet. Returning to Program Menu...");
 					}
+					/*
+					 * Deletes the program's Curriculum, a confirmation is added to avoid accidental deletion
+					 * The user's input is validated, if the input is invalid the user is returned to the program menu
+					 * After deletion, the user goes back to the program menu.
+					 */
 				case 5:
 					System.out.println("\nWarning! Deleting this Program's Curriculum...");
 					System.out.println(
@@ -305,6 +316,11 @@ public class Main {
 						System.out.println("\nReturning to Program Menu...");
 					}
 					break;
+					/*
+					 * Deletes the program that is being edited, a confirmation is added to avoid accidental deletion
+					 * The user's input is validated, if the input is invalid the user is returned to the program menu
+					 * After deletion, the user goes back to the program menu.
+					 */
 				case 6:
 					System.out.println("\nWarning! Deleting this Program...");
 					System.out.println(
@@ -328,6 +344,7 @@ public class Main {
 						System.out.println("\nReturning to Program Menu...");
 						break;
 					}
+					//Returns to the Main menu from the Program menu
 				case 7:
 					System.out.println("\nReturning to Main Menu...");
 					return;
