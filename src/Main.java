@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-//lasdfjkalsdjfalskdjsdakjlf
+
 public class Main {
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	static List<Program> listPrograms = new ArrayList<Program>();
