@@ -71,7 +71,7 @@ public class AcademicTerm {
 		if (this.listCourses.contains(course)) {
 			this.listCourses.remove(course);
 		} else {
-			throw new Exception("\nThis Course is not found on this Period");
+			throw new Exception("\nThis Course is not found on this Academic Term");
 		}
 	}
 
